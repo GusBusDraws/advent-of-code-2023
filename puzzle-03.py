@@ -22,8 +22,6 @@ def make_games_dict(lines):
                 games[game_i][color[color.find(' ')+1 :]].append(
                     int(color[0 : color.find(' ') ])
                 )
-        print(games[game_i])
-        print()
     return games
 
 def check_conditions(games : dict, conditions : dict):
@@ -36,6 +34,15 @@ def check_conditions(games : dict, conditions : dict):
         ):
             possible_games.append(game_i)
     return possible_games
+
+def run_tests(tests, conditions, correct_games):
+    games = make_games_dict(tests)
+    possible_games = check_conditions(games, conditions)
+    try:
+        assert possible_games == correct_games
+        print(f'[o] Passed: {possible_games}')
+    except AssertionError:
+        print(f'[ ] Failed: {possible_games}, [o] {correct_games}')
 
 def run_final(lines):
     games = make_games_dict(lines)
@@ -55,6 +62,8 @@ if __name__ == "__main__":
         'green' : 13,
         'blue' : 14
     }
+    correct_games = [1, 2, 5]
+    run_tests(tests, conditions, correct_games)
     test_sum = run_final(tests)
     print('Final test:', test_sum)
     input_02 = get_lines('inputs/input-02.txt')
